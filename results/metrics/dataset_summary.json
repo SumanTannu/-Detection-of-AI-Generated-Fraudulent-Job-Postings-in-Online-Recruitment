@@ -1,0 +1,10 @@
+{
+  "rows": 17884,
+  "class_counts": {
+    "0": 17014,
+    "1": 866,
+    "2": 4
+  },
+  "approved_synthetic": 4,
+  "seed": 42
+}

@@ -1,0 +1,9 @@
+{
+  "protocol_version": "v3.1",
+  "base_protocol": "gpt_regeneration_v3_protocol.json",
+  "follow_up_reason": "The frozen v3 smoke test falsely classified source-supported age eligibility (16-18 year olds) as an invented experience duration after rephrasing.",
+  "validation_change": "Exempt only an explicit generated age range that exactly matches an explicit source age range. All other unsupported duration checks remain active.",
+  "source_ids": [11662, 12066, 13604, 14350, 14484, 15885, 3203, 4581, 5581, 6199, 7192, 9208],
+  "excluded_source_id": 10308,
+  "smoke_source_id": 11662
+}

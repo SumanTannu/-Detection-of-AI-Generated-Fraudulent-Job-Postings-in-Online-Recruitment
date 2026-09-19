@@ -1,0 +1,19 @@
+Column,Data Type,Missing %,Text/Metadata,Potentially Useful,Notes
+title,object,0.0,Text,Yes,Core recruitment text; candidate for future transformer input.
+location,object,1.9351,Metadata / short text descriptor,Maybe,"Potentially useful context, but should be reviewed for leakage, sparsity, and fairness concerns."
+department,object,64.5805,Metadata / short text descriptor,Maybe,"Potentially useful context, but should be reviewed for leakage, sparsity, and fairness concerns."
+salary_range,object,83.9597,Metadata / structured text,Maybe,May be useful but can be sparse and may introduce shortcut learning.
+company_profile,object,18.5011,Text,Yes,Core recruitment text; candidate for future transformer input.
+description,object,0.0,Text,Yes,Core recruitment text; candidate for future transformer input.
+requirements,object,15.0391,Text,Yes,Core recruitment text; candidate for future transformer input.
+benefits,object,40.2461,Text,Yes,Core recruitment text; candidate for future transformer input.
+telecommuting,object,0.0,Metadata / binary,Maybe,Could be predictive but risks metadata leakage/shortcut learning if mixed into a text-only transformer setup.
+has_company_logo,object,0.0,Metadata / binary,Maybe,Could be predictive but risks metadata leakage/shortcut learning if mixed into a text-only transformer setup.
+has_questions,object,0.0,Metadata / binary,Maybe,Could be predictive but risks metadata leakage/shortcut learning if mixed into a text-only transformer setup.
+employment_type,object,19.4128,Metadata / short text descriptor,Maybe,"Potentially useful context, but should be reviewed for leakage, sparsity, and fairness concerns."
+required_experience,object,39.4295,Metadata / short text descriptor,Maybe,"Potentially useful context, but should be reviewed for leakage, sparsity, and fairness concerns."
+required_education,object,45.33,Metadata / short text descriptor,Maybe,"Potentially useful context, but should be reviewed for leakage, sparsity, and fairness concerns."
+industry,object,27.4217,Metadata / short text descriptor,Maybe,"Potentially useful context, but should be reviewed for leakage, sparsity, and fairness concerns."
+function,object,36.1018,Metadata / short text descriptor,Maybe,"Potentially useful context, but should be reviewed for leakage, sparsity, and fairness concerns."
+fraudulent,object,0.0,Target,No,Class label; must never be included as model input.
+in_balanced_dataset,object,0.0,Metadata / preprocessing artifact,No,May encode previous balancing/subsetting and could leak experimental design.

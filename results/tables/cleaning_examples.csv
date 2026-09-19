@@ -1,0 +1,66 @@
+example_type,source_row_id,fraudulent,raw_text_excerpt,cleaned_text_excerpt,notes
+html_markup,0,f,"title: Marketing Intern
+
+company_profile: <h3>We're Food52, and we've created a groundbreaking and award-winning cooking site. We support, connect, and celebrate home cooks, and give them everything they need in one place.</h3>
+<p>We have a top editorial, business, and engineering team. We're focused on using technology to find new and better ways to connect people around their specific food interests, and to offer them superb, highly curated information about food and cooking. We attract the most talented home cooks and contributors in the country; we also publish well-known professionals like Mario Batali, Gwyneth Paltrow, and Danny Meyer. And we have partnerships with Whole Foods Market ...","Title: Marketing Intern
+
+Company Profile: We're Food52, and we've created a groundbreaking and award-winning cooking site. We support, connect, and celebrate home cooks, and give them everything they need in one place. 
+ We have a top editorial, business, and engineering team. We're focused on using technology to find new and better ways to connect people around their specific food interests, and to offer them superb, highly curated information about food and cooking. We attract the most talented home cooks and contributors in the country; we also publish well-known professionals like Mario Batali, Gwyneth Paltrow, and Danny Meyer. And we have partnerships with Whole Foods Market and Random ...",HTML tags and entities are removed while readable text is retained.
+missing_field,5,f,"title: Accounting Clerk
+
+company_profile: 
+
+description: <p><b>Job Overview</b></p>
+<p>Apex is an environmental consulting firm that offers stable leadership and growth and views employees as valuable resources. We are seeking a self-motivated, multi-faceted <b>Accounts Payable Clerk </b>to join our team in Rockville, MD and become an integral part of our continued success story.  This position entails processing high volume of invoices and working in a fast pace environment; keying and verifying various types of invoices to General Ledger accounts and job numbers submitted by vendors and company personnel; and calculating balance due to vendor by reviewing history of prior payments made to...","Title: Accounting Clerk
+
+Description: Job Overview  
+ Apex is an environmental consulting firm that offers stable leadership and growth and views employees as valuable resources. We are seeking a self-motivated, multi-faceted  Accounts Payable Clerk  to join our team in Rockville, MD and become an integral part of our continued success story.  This position entails processing high volume of invoices and working in a fast pace environment; keying and verifying various types of invoices to General Ledger accounts and job numbers submitted by vendors and company personnel; and calculating balance due to vendor by reviewing history of prior payments made to an account. Candidate must be able to ...",A missing core field becomes an empty processed field; no content is fabricated.
+replacement_character,1041,f,"title: E Commerce Business Analyst 
+
+company_profile: 
+
+description: <p>Join a team of brightest strategist, planners, and implementers to expand your career. We are looking for a hands-on, experienced and result-oriented eCommerce Business Analyst. If you are available and interested, or know someone else who may be looking, please contact us.</p>
+<p> </p>
+<p> </p>
+<p>Title: eCommerce Business Analyst</p>
+<p>Location: Greater New York City Area<br> Type: Hourly W2 or C2C</p>
+<p>Rate:  DOE</p>
+<p>Job ID:  [PHONE]BA</p>
+<p> </p>
+<p><b>JOB DESCRIPTION</b></p>
+<p> </p>
+<p><b>Job Responsibilities:</b></p>
+<p>Under the direct supervision of a Principal Consultant, the eCommerce Busines...","Title: E Commerce Business Analyst
+
+Description: Join a team of brightest strategist, planners, and implementers to expand your career. We are looking for a hands-on, experienced and result-oriented eCommerce Business Analyst. If you are available and interested, or know someone else who may be looking, please contact us. 
+   
+   
+ Title: eCommerce Business Analyst 
+ Location: Greater New York City Area  Type: Hourly W2 or C2C 
+ Rate:  DOE 
+ Job ID:  [PHONE]BA 
+   
+  JOB DESCRIPTION  
+   
+  Job Responsibilities:  
+ Under the direct supervision of a Principal Consultant, the eCommerce Business Analyst will lead business analysis and documentation for eCommerce portal. As we assist our client ...",Known replacement placeholders become spaces; surrounding content remains.
+multiple_core_fields,1,f,"title: Customer Service - Cloud Video Production
+
+company_profile: <h3>90 Seconds, the worlds Cloud Video Production Service.</h3>
+<p>90 Seconds is the worlds Cloud Video Production Service enabling brands and agencies to get high quality online video content shot and produced anywhere in the world. 90 Seconds makes video production fast, affordable, and all managed seamlessly in the cloud from purchase to publish. <a href=""http://90#URL_fbe6559afac620a3cd2c22281f7b8d0eef56a73e3d9a311e2f1ca13d081dd630#"" rel=""nofollow"" class=""external"">http://90#URL_fbe6559afac620a3cd2c22281f7b8d0eef56a73e3d9a311e2f1ca13d081dd630#</a></p>
+<p></p>
+<p>90 Seconds removes the hassle, cost, risk and speed issue...","Title: Customer Service - Cloud Video Production
+
+Company Profile: 90 Seconds, the worlds Cloud Video Production Service. 
+ 90 Seconds is the worlds Cloud Video Production Service enabling brands and agencies to get high quality online video content shot and produced anywhere in the world. 90 Seconds makes video production fast, affordable, and all managed seamlessly in the cloud from purchase to publish.  http://90#URL_fbe6559afac620a3cd2c22281f7b8d0eef56a73e3d9a311e2f1ca13d081dd630#  
+  
+ 90 Seconds removes the hassle, cost, risk and speed issues of working with regular video production companies by managing every aspect of video projects in a beautiful online experience. With a growing gl...",Multiple cleaned fields are combined using explicit field labels.
+normal_record,1365,f,"title: STNA/ CNA 
+
+company_profile: 
+
+description: Helping Hands Healthcare is a home health agency currently seeking STNA's and CNA's. We are in need of compassionate aides for our Butler County area, especially in our Middletown, Oxford, Trenton, Hamilton, Fairfield, and West Chester areas. **We are also looking for STNA/CNA's that have experience in working with people that suffer from dementia and Alzheimer's disease.** Our aides go into clients homes to provide homemaking and personal care services. Must have a valid driver's license, proof of insurance, and a clean criminal background to qualify. Also must have your own reliable vehicle as this job does require traveling and running er...","Title: STNA/ CNA
+
+Description: Helping Hands Healthcare is a home health agency currently seeking STNA's and CNA's. We are in need of compassionate aides for our Butler County area, especially in our Middletown, Oxford, Trenton, Hamilton, Fairfield, and West Chester areas. **We are also looking for STNA/CNA's that have experience in working with people that suffer from dementia and Alzheimer's disease.** Our aides go into clients homes to provide homemaking and personal care services. Must have a valid driver's license, proof of insurance, and a clean criminal background to qualify. Also must have your own reliable vehicle as this job does require traveling and running errands for clients.
+
+...",A record without detected HTML or replacement artifacts.

@@ -1,0 +1,11 @@
+metric,before,after,note
+row_count,17880.0,17880,All source records retained.
+legitimate_records (fraudulent=f),17014.0,17014,Target values unchanged.
+fraudulent_records (fraudulent=t),866.0,866,Target values unchanged.
+missing core-text cells,13193.0,0,Only processed core text uses empty strings for raw missing values.
+empty or whitespace-only core-text cells,0.0,13220,After includes raw missing values represented as empty strings.
+records with all core fields empty,0.0,0,Canonical text omits empty field sections.
+records containing HTML in core fields,17863.0,0,HTML markup removed from cleaned core fields.
+records containing replacement artifacts,24.0,0,Post-cleaning count is measured in the cleaned core fields.
+exact duplicate rows after first,235.0,1823,After compares cleaned core fields plus target; no rows are removed.
+exact cleaned-text duplicate groups,,683,Tracked with text_group_id for future group-aware splitting.

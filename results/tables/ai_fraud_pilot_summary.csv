@@ -1,0 +1,14 @@
+metric,value
+number_selected,20
+number_successfully_generated,20
+number_generation_failures,0
+number_structurally_valid,20
+number_automatically_passing,0
+number_automatically_accepted,0
+number_rejected,20
+number_requiring_human_review,0
+average_source_text_characters,2971.15
+average_generated_text_characters,154.0
+generation_mode,mock
+provider,mock
+model,mock-v1

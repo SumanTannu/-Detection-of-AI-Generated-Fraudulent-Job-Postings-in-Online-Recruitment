@@ -1,0 +1,9 @@
+{
+  "protocol_version": "v3.2",
+  "base_protocol": "gpt_regeneration_v3_protocol.json",
+  "follow_up_reason": "The frozen v3.1 smoke candidate passed all checks except its fraud mechanism occurred in one coherent recruitment sentence. Sentence count is not a valid proxy for natural integration.",
+  "validation_change": "Replace the two-sentence requirement with a recruitment-context integration screen that rejects warning-style/disconnected appendices and excessive repetition.",
+  "source_ids": [11662, 12066, 13604, 14350, 14484, 15885, 3203, 4581, 5581, 6199, 7192, 9208],
+  "excluded_source_id": 10308,
+  "smoke_source_id": 11662
+}

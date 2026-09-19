@@ -1,0 +1,25 @@
+column_name,original_dtype,unique_values,missing_count,missing_percentage,example_values,category,consider_for_future_text_only_model,reason
+title,object,11231,0,0.0,Marketing Intern | Customer Service - Cloud Video Production | Commissioning Machinery Assistant (CMA),text,Yes,Core recruitment text used in the Phase 2A text-only representation.
+location,object,3105,346,1.9351,"US, NY, New York | NZ, , Auckland | US, IA, Wever",categorical metadata,No,Contextual metadata; excluded to preserve the initial text-only scope.
+department,object,1337,11547,64.5805,Marketing | Success | Sales,categorical metadata,No,Contextual metadata; excluded to preserve the initial text-only scope.
+salary_range,object,874,15012,83.9597,[PHONE] | [PHONE] | [PHONE],categorical metadata,No,Sparse range-like metadata; retain raw value only for later review.
+company_profile,object,1710,3308,18.5011,"<h3>We're Food52, and we've created a groundbreaking and award-winning cooking s... | <h3>90 Seconds, the worlds Cloud Video Production Service.</h3>
+<p>90 Seconds i... | <h3></h3>
+<p>Valor Services provides Workforce Solutions that meet the needs of...",text,Yes,Core recruitment text used in the Phase 2A text-only representation.
+description,object,15095,0,0.0,"<p>Food52, a fast-growing, James Beard Award-winning online food community and c... | <p>Organised - Focused - Vibrant - Awesome!<br><br>Do you have a passion for cus... | <p>Our client, located in Houston, is actively seeking an experienced Commission...",text,Yes,Core recruitment text used in the Phase 2A text-only representation.
+requirements,object,12119,2689,15.0391,"<ul>
+<li>Experience with content management systems a major plus (any blogging ... | <p><b>What we expect from you:</b></p>
+<p>Your key responsibility will be to co... | <ul>
+<li>Implement pre-commissioning and commissioning procedures for rotary eq...",text,Yes,Core recruitment text used in the Phase 2A text-only representation.
+benefits,object,6510,7196,40.2461,"<h3><b>What you will get from us</b></h3>
+<p>Through being part of the 90 Secon... | <p>Our culture is anything but corporate—we have a collaborative, creative envir... | <p>Full Benefits Offered</p>",text,Yes,Core recruitment text used in the Phase 2A text-only representation.
+telecommuting,object,2,0,0.0,f | f | f,binary metadata,No,Potential shortcut feature; excluded from the primary text-only model.
+has_company_logo,object,2,0,0.0,t | t | t,binary metadata,No,Potential shortcut feature; excluded from the primary text-only model.
+has_questions,object,2,0,0.0,f | f | f,binary metadata,No,Potential shortcut feature; excluded from the primary text-only model.
+employment_type,object,5,3471,19.4128,Other | Full-time | Full-time,categorical metadata,No,Contextual metadata; excluded to preserve the initial text-only scope.
+required_experience,object,7,7050,39.4295,Internship | Not Applicable | Mid-Senior level,categorical metadata,No,Contextual metadata; excluded to preserve the initial text-only scope.
+required_education,object,13,8105,45.33,Bachelor's Degree | Bachelor's Degree | Master's Degree,categorical metadata,No,Contextual metadata; excluded to preserve the initial text-only scope.
+industry,object,131,4903,27.4217,Marketing and Advertising | Computer Software | Hospital & Health Care,categorical metadata,No,Contextual metadata; excluded to preserve the initial text-only scope.
+function,object,37,6455,36.1018,Marketing | Customer Service | Sales,categorical metadata,No,Contextual metadata; excluded to preserve the initial text-only scope.
+fraudulent,object,2,0,0.0,f | f | f,target,No,Outcome label; must never be a model input.
+in_balanced_dataset,object,2,0,0.0,f | f | f,dataset artifact,No,Likely prior balancing/subsetting flag; high leakage risk.

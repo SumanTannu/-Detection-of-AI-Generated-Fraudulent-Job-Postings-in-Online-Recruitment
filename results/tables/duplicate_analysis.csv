@@ -1,0 +1,11 @@
+section,metric,value,interpretation
+exact_rows,duplicate rows after first occurrence,235,Rows are retained in emscad_clean.csv.
+exact_rows,exact duplicate groups,204,All exact duplicates include the same target value.
+exact_rows,feature-identical groups with conflicting labels,0,Features exclude fraudulent; zero supports retaining source records without resolving a direct conflict.
+description,duplicate groups,1052,Repeated descriptions can leak across future splits.
+description,duplicate records after first occurrence,2785,Includes same-label and conflicting-label groups.
+description,same-label duplicate groups,1051,Use text_group_id to keep these together during future splitting.
+description,conflicting-label groups,1,Retain and review; do not silently delete ambiguous source data.
+title,normalized-title duplicate groups,1739,Titles alone are not used as an advertisement-duplicate rule.
+policy,processed-data duplicate policy,retain_all_rows,No records are removed. Exact cleaned-text groups receive deterministic identifiers for later group-aware splits.
+description_example,conflicting-label source rows,"9138 (t), 11889 (f), 15236 (f)",One repeated raw description occurs with both labels; source rows and labels are shown for review without reproducing the full posting text.

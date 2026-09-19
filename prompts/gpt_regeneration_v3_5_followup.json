@@ -1,0 +1,8 @@
+{
+  "protocol_version": "v3.5",
+  "base_protocol": "gpt_regeneration_v3_protocol.json",
+  "source_ids": [14350, 3203, 4581, 7192],
+  "retained_v3_4_source_id": 5581,
+  "max_attempts": 10,
+  "generation_change": "Each attempt incorporates stored failure diagnostics and must pass both v3.4 validation and the deterministic human-review-style gate."
+}

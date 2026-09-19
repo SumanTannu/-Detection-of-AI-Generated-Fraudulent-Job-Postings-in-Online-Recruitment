@@ -1,0 +1,112 @@
+column,value,count,percentage
+location,"GB, LND, London",736,4.1163
+location,"US, NY, New York",674,3.7696
+location,"US, CA, San Francisco",479,2.679
+location,"GR, I, Athens",469,2.623
+location,<missing>,346,1.9351
+location,"US, ,",339,1.896
+location,"US, TX, Houston",270,1.5101
+location,"US, IL, Chicago",256,1.4318
+location,"US, DC, Washington",251,1.4038
+location,"NZ, N, Auckland",224,1.2528
+location,"DE, BE, Berlin",222,1.2416
+location,"US, CA, Los Angeles",192,1.0738
+location,"GB, , London",181,1.0123
+location,"US, TX, Austin",174,0.9732
+location,"US, CA, San Diego",164,0.9172
+department,<missing>,11547,64.5805
+department,Sales,564,3.1544
+department,Engineering,505,2.8244
+department,Marketing,418,2.3378
+department,Operations,275,1.538
+department,IT,229,1.2808
+department,Development,153,0.8557
+department,Product,113,0.632
+department,Information Technology,100,0.5593
+department,Design,79,0.4418
+department,Technology,79,0.4418
+department,Customer Service,76,0.4251
+department,Finance,71,0.3971
+department,HR,56,0.3132
+department,tech,55,0.3076
+employment_type,Full-time,11620,64.9888
+employment_type,<missing>,3471,19.4128
+employment_type,Contract,1524,8.5235
+employment_type,Part-time,797,4.4575
+employment_type,Temporary,241,1.3479
+employment_type,Other,227,1.2696
+required_experience,<missing>,7050,39.4295
+required_experience,Mid-Senior level,3809,21.3031
+required_experience,Entry level,2697,15.0839
+required_experience,Associate,2297,12.8468
+required_experience,Not Applicable,1116,6.2416
+required_experience,Director,389,2.1756
+required_experience,Internship,381,2.1309
+required_experience,Executive,141,0.7886
+required_education,<missing>,8105,45.33
+required_education,Bachelor's Degree,5145,28.7752
+required_education,High School or equivalent,2080,11.6331
+required_education,Unspecified,1397,7.8132
+required_education,Master's Degree,416,2.3266
+required_education,Associate Degree,274,1.5324
+required_education,Certification,170,0.9508
+required_education,Some College Coursework Completed,102,0.5705
+required_education,Professional,74,0.4139
+required_education,Vocational,49,0.274
+required_education,Some High School Coursework,27,0.151
+required_education,Doctorate,26,0.1454
+required_education,Vocational - HS Diploma,9,0.0503
+required_education,Vocational - Degree,6,0.0336
+industry,<missing>,4903,27.4217
+industry,Information Technology and Services,1734,9.698
+industry,Computer Software,1376,7.6957
+industry,Internet,1062,5.9396
+industry,Marketing and Advertising,828,4.6309
+industry,Education Management,822,4.5973
+industry,Financial Services,779,4.3568
+industry,Hospital & Health Care,497,2.7796
+industry,Consumer Services,358,2.0022
+industry,Telecommunications,342,1.9128
+industry,Oil & Energy,287,1.6051
+industry,Retail,223,1.2472
+industry,Real Estate,175,0.9787
+industry,Accounting,159,0.8893
+industry,Construction,158,0.8837
+function,<missing>,6455,36.1018
+function,Information Technology,1749,9.7819
+function,Sales,1468,8.2103
+function,Engineering,1348,7.5391
+function,Customer Service,1229,6.8736
+function,Marketing,830,4.6421
+function,Administrative,630,3.5235
+function,Design,340,1.9016
+function,Health Care Provider,338,1.8904
+function,Other,325,1.8177
+function,Education,325,1.8177
+function,Management,317,1.7729
+function,Business Development,228,1.2752
+function,Accounting/Auditing,212,1.1857
+function,Human Resources,205,1.1465
+salary_range,<missing>,15012,83.9597
+salary_range,0-0,142,0.7942
+salary_range,40000-50000,66,0.3691
+salary_range,30000-40000,55,0.3076
+salary_range,45000-67000,37,0.2069
+salary_range,25000-30000,37,0.2069
+salary_range,30000-50000,32,0.179
+salary_range,35000-45000,30,0.1678
+salary_range,70000-90000,30,0.1678
+salary_range,80000-100000,30,0.1678
+salary_range,50000-80000,29,0.1622
+salary_range,50000-70000,28,0.1566
+salary_range,60000-80000,28,0.1566
+salary_range,55000-75000,28,0.1566
+salary_range,40000-45000,27,0.151
+telecommuting,f,17113,95.7103
+telecommuting,t,767,4.2897
+has_company_logo,t,14220,79.5302
+has_company_logo,f,3660,20.4698
+has_questions,f,9088,50.8277
+has_questions,t,8792,49.1723
+in_balanced_dataset,f,16980,94.9664
+in_balanced_dataset,t,900,5.0336

@@ -1,0 +1,12 @@
+check,value,notes
+object_columns_with_empty_strings,0,Columns containing explicit empty strings.
+total_empty_string_cells,0,Does not include NaN values.
+total_empty_or_whitespace_cells,6,Whitespace-only cells included; NaN excluded.
+records_with_all_major_text_fields_empty,0,"Major text fields are title, company_profile, description, requirements, benefits where present."
+records_with_html_tags_in_major_text,17863,HTML markup is present in raw text and should be handled in preprocessing.
+records_with_replacement_character_in_major_text,4304,May indicate encoding artifacts in raw text.
+unexpected_target_records,0,Target values outside the interpreted legitimate/fraudulent mapping.
+exact_duplicate_rows,235,Documented only; raw dataset unchanged.
+description_values_repeated_5_plus_times,137,Suspiciously repeated advertisements may require review later.
+title_values_repeated_20_plus_times,54,"Common titles are expected, but high repetition may affect splitting/evaluation."
+obvious_id_column,0,No obvious ID column detected.

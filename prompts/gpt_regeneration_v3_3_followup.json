@@ -1,0 +1,10 @@
+{
+  "protocol_version": "v3.3",
+  "base_protocol": "gpt_regeneration_v3_protocol.json",
+  "follow_up_reason": "The frozen v3.2 smoke candidate passed contextual integration but introduced unsupported full-time employment wording.",
+  "generation_change": "Employment arrangements and working hours are explicit source-bound facts. The prompt requires omission when they are absent and forbids additions or substitutions.",
+  "validation_change": "Retain v3.2 checks and compare explicit source/output employment-arrangement and weekly-hours wording.",
+  "source_ids": [11662, 12066, 13604, 14350, 14484, 15885, 3203, 4581, 5581, 6199, 7192, 9208],
+  "excluded_source_id": 10308,
+  "smoke_source_id": 11662
+}

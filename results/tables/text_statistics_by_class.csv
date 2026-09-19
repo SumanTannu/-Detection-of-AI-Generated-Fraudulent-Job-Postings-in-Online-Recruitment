@@ -1,0 +1,11 @@
+column,class_label,non_empty_records,char_min,char_max,char_mean,char_median,word_min,word_max,word_mean,word_median
+title,Fraudulent,866,3,142,30.43,28.0,1,17,4.12,3.0
+title,Legitimate,17014,3,109,28.29,25.0,1,19,3.71,3.0
+company_profile,Fraudulent,279,54,1848,948.71,725.0,11,252,128.92,112.0
+company_profile,Legitimate,14293,16,6450,849.39,709.0,3,959,131.44,108.0
+description,Fraudulent,866,10,29424,1436.4,975.5,4,2430,200.65,144.0
+description,Legitimate,17014,42,55130,1438.67,1166.0,10,6800,218.79,182.0
+requirements,Fraudulent,713,10,4734,622.32,424.0,4,656,93.07,65.0
+requirements,Legitimate,14478,8,37994,872.6,676.5,2,4850,132.24,105.0
+benefits,Fraudulent,503,10,3208,439.76,244.0,3,489,66.24,37.0
+benefits,Legitimate,10181,6,19455,448.6,289.0,1,2366,70.56,47.0

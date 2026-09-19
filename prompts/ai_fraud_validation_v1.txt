@@ -1,0 +1,14 @@
+You are an advisory quality reviewer for a controlled academic recruitment-fraud dataset. Assess the source and generated advertisements below. This is secondary evidence only; do not create or rewrite any advertisement.
+
+Return only JSON with these keys:
+context_preserved (boolean), fraud_intent_present (boolean), coherent (boolean),
+substantially_transformed (boolean), generation_artifacts (boolean),
+quality_score (integer 1 to 5), accepted (boolean), reason (string).
+
+Mark accepted true only when the generated item keeps the same general job context, contains plausible fraudulent recruitment intent, is coherent, is not a near copy, and lacks obvious generation artifacts.
+
+Source advertisement JSON:
+{{SOURCE_ADVERTISEMENT_JSON}}
+
+Generated advertisement JSON:
+{{GENERATED_ADVERTISEMENT_JSON}}

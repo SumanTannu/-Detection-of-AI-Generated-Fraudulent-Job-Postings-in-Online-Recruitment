@@ -1,0 +1,8 @@
+{
+  "protocol_version": "v3.4",
+  "base_protocol": "gpt_regeneration_v3_protocol.json",
+  "source_ids": [14350, 3203, 4581, 5581, 7192],
+  "retained_for_human_review": [11662, 12066, 13604, 14484, 15885, 6199, 9208],
+  "generation_change": "Preserve every source-supported employment, experience, qualification and compensation fact. When source compensation contains multiple amounts without an explicit range, preserve its separate statements and do not construct a range.",
+  "validation_version": "v3.4-groq-pilot"
+}

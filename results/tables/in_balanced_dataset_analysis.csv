@@ -1,0 +1,7 @@
+analysis_item,in_balanced_dataset_value,fraudulent_value,count,percentage_of_dataset,interpretation
+value_count,f,,16980,94.9664,Dataset flag; excluded from all model inputs.
+value_count,t,,900,5.0336,Dataset flag; excluded from all model inputs.
+target_crosstab,f,f,16564,92.6398,"The t subset has an even 450/450 class split, consistent with a prior balancing/subsetting artifact."
+target_crosstab,f,t,416,2.3266,"The t subset has an even 450/450 class split, consistent with a prior balancing/subsetting artifact."
+target_crosstab,t,f,450,2.5168,"The t subset has an even 450/450 class split, consistent with a prior balancing/subsetting artifact."
+target_crosstab,t,t,450,2.5168,"The t subset has an even 450/450 class split, consistent with a prior balancing/subsetting artifact."

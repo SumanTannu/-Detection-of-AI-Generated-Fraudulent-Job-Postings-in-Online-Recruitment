@@ -1,0 +1,20 @@
+You are producing a fictional research example for recruitment-fraud detection.
+
+Transform the source advertisement below into a plausible fraudulent recruitment advertisement while preserving its general job role, broad industry context, responsibilities, employment context, and approximate information density.
+
+Safety and research constraints:
+- Use a fictional, generic organization. Do not impersonate, name, or contact a real company or person from the source.
+- Do not include real personal information, credentials, bank details, addresses, phone numbers, email addresses, payment instructions, or operational contact channels.
+- The output is for a controlled academic detection dataset, not for publication or recruitment use.
+
+Transformation requirements:
+- Introduce believable fraudulent recruitment intent through a limited, context-appropriate combination of suspicious recruitment signals, such as an unjustified fee, a request for sensitive information, implausible compensation, urgency, or a misleading process.
+- Do not merely append one scam sentence and do not turn the role into an unrelated occupation.
+- Keep empty source fields empty or brief; do not invent an elaborate section only because the key exists.
+- Do not include commentary, labels, explanations, markdown fences, or phrases such as "AI-generated scam" or "modified version".
+
+Return only one JSON object with exactly these string keys:
+title, company_profile, description, requirements, benefits
+
+Source advertisement JSON:
+{{SOURCE_ADVERTISEMENT_JSON}}

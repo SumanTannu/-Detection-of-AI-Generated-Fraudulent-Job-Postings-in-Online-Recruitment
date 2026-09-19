@@ -1,0 +1,4 @@
+column,affected_records_before_cleaning,handling
+description,6,Known replacement placeholders are replaced with a single space; surrounding content is retained.
+requirements,19,Known replacement placeholders are replaced with a single space; surrounding content is retained.
+benefits,1,Known replacement placeholders are replaced with a single space; surrounding content is retained.
