@@ -4,8 +4,14 @@
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
-data/raw/
-data/processed/*.csv
-data/splits/*.csv
+# Primary datasets are committed through Git LFS for reproducibility.
+!data/
+!data/raw/
+!data/raw/emscad.csv
+!data/processed/
+!data/processed/emscad_clean.csv
+!data/processed/final_3class_dataset.csv
+!data/splits/
+!data/splits/*.csv
 data/synthetic/
 models/*/

@@ -1,0 +1,5 @@
+check,result,value
+source_group_overlap,PASS,0
+parent_child_leakage,PASS,0
+canonical_text_cross_split,PASS,0
+cross_class_canonical_conflicts,PASS,0
