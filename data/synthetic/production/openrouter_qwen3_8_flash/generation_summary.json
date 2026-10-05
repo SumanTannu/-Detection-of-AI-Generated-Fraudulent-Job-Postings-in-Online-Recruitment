@@ -1,0 +1,26 @@
+{
+  "target": 5000,
+  "attempted": 12076,
+  "generated": 490,
+  "approved": 359,
+  "rejected": 11713,
+  "needs_human_review": 4,
+  "api_failures": 11586,
+  "http_429_errors": 91,
+  "incompatible_sources_skipped": 3268,
+  "acceptance_rate": 0.732653,
+  "remaining_approved_required": 4641,
+  "finished": false,
+  "stop_reason": "Eligible unique source pool exhausted before 5,000 approvals.",
+  "mechanism_distribution": {
+    "suspicious_application": 60,
+    "unusual_financial_arrangements": 60,
+    "urgency_pressure": 59,
+    "sensitive_information": 60,
+    "implausible_recruitment": 60,
+    "payment_related": 60
+  },
+  "model_distribution": {
+    "qwen/qwen3.8-flash": 359
+  }
+}

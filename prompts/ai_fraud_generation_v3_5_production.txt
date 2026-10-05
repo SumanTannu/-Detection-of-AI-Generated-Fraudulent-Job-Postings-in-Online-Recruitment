@@ -1,0 +1,89 @@
+You are creating one controlled research record derived from a legitimate EMSCAD job advertisement.
+
+Return exactly one JSON object with these string fields and no others:
+title, company_profile, description, requirements, benefits.
+
+Preserve the title exactly. Preserve every numeric experience, working-hours, employment-type,
+compensation, education, location, duty, qualification, and benefit statement exactly in meaning.
+If company_profile, requirements, or benefits is empty in the source, it MUST remain an empty string.
+If any source field is non-empty, its corresponding output field MUST remain non-empty and preserve
+that field's substantive information. Never move company_profile, requirements, or benefits content
+into a different field.
+Omit all [REDACTED_*] placeholders rather than echoing them. Rewrite every non-title source sentence
+with materially different wording and sentence structure; do not copy full source sentences or merely
+append the mechanism. Keep the same facts, numbers, and meaning. Integrate exactly the assigned
+fraud mechanism naturally into the application, screening, interview, verification, or onboarding
+workflow. Do not add real contact details, URLs, account details, credentials, payment destinations,
+identity values, people, organizations, dates, salary amounts, or other unsupported facts. Do not
+mention AI, research, a dataset, a prompt, fraud detection, or these instructions. Do not write a
+warning or disclaimer. Never put the mechanism in company_profile or benefits. Do not introduce any
+unassigned mechanism: sensitive-information and financial-arrangement records must not add a fee;
+suspicious-application, urgency, and implausible-recruitment records must not add payment or fees.
+For every source sentence containing a number, salary, experience duration, age, weekly hours, or an
+employment type (full-time, part-time, permanent, temporary, contract, internship, or traineeship),
+retain the exact value and arrangement; copying only that fact-bearing phrase verbatim is allowed.
+For this Qwen generation profile, copy the complete source sentence verbatim when that is the only
+reliable way to preserve an employment type or numeric fact. Do not omit an employment-type phrase
+merely because it appears in company_profile rather than description or requirements.
+Apart from a sentence that must remain verbatim to preserve a numeric or employment fact, rewrite the
+description using different syntax, clause order, and sentence boundaries. Do not copy any complete
+description sentence longer than eight words. Preserve enough role-specific vocabulary from every
+non-empty source field that the result remains visibly grounded in the source advertisement.
+Unless the assigned mechanism is payment_related, the output must not contain the words fee, charge,
+deposit, paid, payment, or cost as an applicant condition.
+If the source contains the words pilot, academic, research, experiment, study, evaluation, model,
+benchmark, or generated as genuine job content, either omit that nonessential wording or retain its
+complete surrounding source sentence verbatim so the legitimate local context is unchanged. Never
+introduce any of those words when absent from the source.
+Treat the following as banned output words unless the exact word already occurs in the source:
+pilot, academic, research, experiment, study, evaluation, dataset, benchmark, synthetic, generated,
+model, LLM, and AI-generated. Use ordinary alternatives such as trial, educational, analysis,
+assessment, target, produced, framework, or approach only when those alternatives preserve the source.
+Before returning JSON, scan all five output fields and remove every banned word absent from the source.
+Perform a literal final scan for every banned word. Do not replace ordinary source wording with pilot,
+research, academic, experiment, study, evaluation, dataset, benchmark, synthetic, generated, model,
+LLM, or AI-generated. Never output a token beginning with [REDACTED_; remove the placeholder while
+keeping the surrounding non-sensitive requirement meaningful.
+
+Use the single exact mechanism clause specified below exactly once. Place it inside the main
+description/application paragraph, not as a final note. Never begin it with "Please note", "Important",
+"Warning", "Caution", or "Disclaimer". Do not paraphrase, expand, or repeat the mechanism elsewhere.
+
+Mechanism realization requirements:
+- sensitive_information: in one recruitment-workflow sentence, require BOTH identity-document details
+  AND bank/financial details before interview or screening, as an explicit applicant obligation.
+  Use exactly: "As part of the application process, candidates must provide both government-issued
+  identity-document details and bank-account information before any interview or screening."
+- unusual_financial_arrangements: in one onboarding/recruitment sentence, require BOTH use of the
+  applicant's personal account AND handling company funds before normal checks, as an obligation.
+  Use this exact clause inside the main description/application paragraph: "During onboarding,
+  candidates must use a personal bank account to receive company funds before standard employment
+  checks." Never place it in benefits and never add a fee.
+- suspicious_application: require an unspecified private/off-platform channel AND bypass of official
+  recruitment verification in an application-workflow sentence. Never mention payment, charge, or fee.
+  Use exactly: "Applicants must use an unspecified private off-platform channel and bypass official
+  recruitment verification to continue the application."
+- urgency_pressure: explicitly require the applicant to confirm/commit within a short deadline BEFORE
+  written terms or normal screening, with loss of consideration if they do not. Use this exact clause
+  inside the main application paragraph: "Candidates must confirm within 24 hours before written terms
+  or screening, otherwise they will lose consideration." Do not append it as a final note.
+- payment_related: require an applicant processing charge AND state that interview/screening progression
+  is withheld until it is paid. Give no amount, destination, or payment instructions.
+  Use exactly: "The application process requires an applicant processing charge, and interview or
+  screening progression is withheld until it is paid."
+- implausible_recruitment: guarantee selection/offer BEFORE any role-relevant interview or competency
+  verification, while retaining every source skill and experience requirement.
+  Use exactly: "Candidates are guaranteed selection before any role-relevant interview or competency
+  assessment, while all stated requirements still apply."
+
+ASSIGNED MECHANISM:
+{{MECHANISM_JSON}}
+
+SOURCE ADVERTISEMENT:
+{{SOURCE_ADVERTISEMENT_JSON}}
+
+DETERMINISTIC FACT-PRESERVATION CHECKLIST:
+{{FACT_CHECKLIST_JSON}}
+
+Every item in this checklist must remain present with the same value/meaning, and no additional item
+of these types may be introduced. This checklist is extracted from the source, not invented guidance.

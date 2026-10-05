@@ -142,15 +142,30 @@ class GroqProvider:
     def __init__(self, model: str) -> None:
         from openai import OpenAI
 
-        if not os.getenv("GROQ_API_KEY"):
+        # Support the original key plus optional additional keys.  Keys are
+        # selected round-robin per request so a second account can increase
+        # available quota without changing the worker or exposing secrets.
+        configured_keys = [
+            value.strip()
+            for name, value in sorted(os.environ.items())
+            if name == "GROQ_API_KEY" or re.fullmatch(r"GROQ_API_KEY_\d+", name)
+            if value and value.strip()
+        ]
+        slot = os.getenv("GROQ_API_KEY_SLOT", "").strip()
+        if slot == "1":
+            configured_keys = [os.getenv("GROQ_API_KEY", "").strip()]
+        elif slot == "2":
+            configured_keys = [os.getenv("GROQ_API_KEY_2", "").strip()]
+        self.api_keys = [key for key in configured_keys if key]
+        if not self.api_keys:
             raise GenerationError("GROQ_API_KEY is missing from the environment/local .env.")
         self.model = model
-        self.client = OpenAI(
-            api_key=os.environ["GROQ_API_KEY"],
-            base_url="https://api.groq.com/openai/v1",
-            max_retries=0,
-            timeout=90.0,
-        )
+        self.clients = [OpenAI(api_key=key, base_url="https://api.groq.com/openai/v1",
+                               max_retries=0, timeout=90.0) for key in self.api_keys]
+        # Backward-compatible alias used by the production v3 structured-
+        # response adapter.  With a key slot selected this is the sole key.
+        self.client = self.clients[0]
+        self._client_index = 0
         self.max_completion_tokens = 4096
         self.temperature = 0.7
         self.seed = 42
@@ -158,14 +173,13 @@ class GroqProvider:
 
     def error_message(self, error: Exception) -> str:
         message = f"{type(error).__name__}: {error}"
-        secret = os.getenv("GROQ_API_KEY", "")
-        if secret:
+        for secret in self.api_keys:
             message = message.replace(secret, "[REDACTED_KEY]")
         return re.sub(r"(?:gsk_|sk-)[A-Za-z0-9_-]+", "[REDACTED_KEY]", message)
 
     def available_models(self) -> list[str]:
         try:
-            return sorted(item.id for item in self.client.models.list().data)
+            return sorted(item.id for item in self.clients[0].models.list().data)
         except Exception as error:
             raise GenerationError(self.error_message(error)) from None
 
@@ -178,7 +192,9 @@ class GroqProvider:
             }} if strict else {"type": "json_object"}
         )
         try:
-            response = self.client.chat.completions.create(
+            client = self.clients[self._client_index % len(self.clients)]
+            self._client_index += 1
+            response = client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 response_format=response_format,
@@ -206,6 +222,99 @@ class GroqProvider:
             raise failure from None
 
 
+class OpenRouterProvider:
+    """OpenRouter Chat Completions adapter with strict structured output."""
+
+    name = "openrouter"
+    generation_mode = "api"
+
+    def __init__(self, model: str) -> None:
+        from openai import OpenAI
+
+        api_key = os.getenv("OPENROUTER_API_KEY")
+        if not api_key:
+            raise GenerationError(
+                "OPENROUTER_API_KEY is missing from the environment/local .env."
+            )
+        self.model = model
+        self.client = OpenAI(
+            api_key=api_key,
+            base_url="https://openrouter.ai/api/v1",
+            max_retries=0,
+            timeout=120.0,
+            default_headers={
+                "HTTP-Referer": os.getenv("OPENROUTER_SITE_URL", "https://localhost"),
+                "X-OpenRouter-Title": os.getenv(
+                    "OPENROUTER_APP_NAME", "EMSCAD Fraud Research"
+                ),
+            },
+        )
+        self.max_completion_tokens = 8192
+        self.temperature = 0.5
+        self.seed = 42
+        self.last_response = {}
+
+    def error_message(self, error: Exception) -> str:
+        message = f"{type(error).__name__}: {error}"
+        secret = os.getenv("OPENROUTER_API_KEY", "")
+        if secret:
+            message = message.replace(secret, "[REDACTED_KEY]")
+        return re.sub(r"sk-or-v1-[A-Za-z0-9_-]+", "[REDACTED_KEY]", message)
+
+    def available_models(self) -> list[str]:
+        try:
+            return sorted(item.id for item in self.client.models.list().data)
+        except Exception as error:
+            failure = GenerationError(self.error_message(error))
+            failure.status_code = getattr(error, "status_code", None)
+            raise failure from None
+
+    def generate_json(self, prompt: str, schema: dict[str, Any]) -> dict[str, Any]:
+        self.last_response = {}
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[{"role": "user", "content": prompt}],
+                response_format={"type": "json_schema", "json_schema": {
+                    "name": "recruitment_record", "strict": True, "schema": schema,
+                }},
+                temperature=self.temperature,
+                seed=self.seed,
+                max_completion_tokens=self.max_completion_tokens,
+                # This task is constrained rewriting, not a reasoning benchmark.
+                # Disabling reasoning prevents hidden thinking tokens from
+                # consuming the completion budget before the JSON is emitted.
+                extra_body={"reasoning": {"enabled": False}},
+            )
+            choice = response.choices[0]
+            content = choice.message.content or ""
+            self.last_response = {
+                "response_id": response.id,
+                "response_model": response.model,
+                "finish_reason": choice.finish_reason,
+                "raw_response": content,
+                "usage": response.usage.model_dump() if response.usage else None,
+                "system_fingerprint": getattr(response, "system_fingerprint", None),
+                "output_format": "json_schema",
+            }
+            if choice.finish_reason != "stop" or getattr(choice.message, "refusal", None):
+                raise GenerationError(
+                    f"Incomplete or refused response: {choice.finish_reason}."
+                )
+            return parse_structured_response(content)
+        except Exception as error:
+            status = getattr(error, "status_code", None)
+            headers = getattr(getattr(error, "response", None), "headers", {})
+            failure = GenerationError(self.error_message(error))
+            failure.status_code = status
+            failure.rate_headers = {
+                k.lower(): v for k, v in headers.items()
+                if k.lower() == "retry-after" or k.lower().startswith("x-ratelimit")
+            }
+            failure.transient = status in {408, 409, 429, 500, 502, 503, 504}
+            raise failure from None
+
+
 def create_provider(config: GenerationConfig) -> GenerationProvider:
     """Create only the selected provider; other provider integrations can follow this interface."""
     if config.generation_mode == "mock":
@@ -214,6 +323,8 @@ def create_provider(config: GenerationConfig) -> GenerationProvider:
         return OpenAIProvider(config.model)
     if config.provider == "groq":
         return GroqProvider(config.model)
+    if config.provider == "openrouter":
+        return OpenRouterProvider(config.model)
     raise GenerationError(
         f"Unsupported provider '{config.provider}'. Implement a GenerationProvider adapter first."
     )

@@ -1,0 +1,56 @@
+{
+  "combined_generated": {
+    "corpus": "combined_generated",
+    "source_file": "combined approved production corpora",
+    "created_at": "2026-10-05T14:21:54.513840+00:00",
+    "seed": 42,
+    "ratios": {
+      "train": 0.7,
+      "validation": 0.15,
+      "test": 0.15
+    },
+    "rows": 32297,
+    "class_counts": {
+      "0": 17014,
+      "1": 866,
+      "2": 14417
+    },
+    "synthetic_rows": 14417,
+    "split_info": {
+      "targets": [
+        [
+          11909.8,
+          606.1999999999999,
+          10091.9
+        ],
+        [
+          2552.1,
+          129.9,
+          2162.5499999999997
+        ],
+        [
+          2552.1,
+          129.9,
+          2162.5499999999997
+        ]
+      ],
+      "observed": [
+        [
+          11910,
+          606,
+          9724
+        ],
+        [
+          2552,
+          130,
+          2346
+        ],
+        [
+          2552,
+          130,
+          2347
+        ]
+      ]
+    }
+  }
+}

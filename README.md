@@ -8,15 +8,15 @@ This project supports a dissertation pipeline for detecting fraudulent job posti
 - `1` = Human-written Fraud
 - `2` = AI-generated Fraud
 
-The completed work currently covers Phase 1 (dataset analysis), Phase 2A (cleaning and preparing the original EMSCAD dataset), and Phase 2B-A (a 20-source controlled generation-pipeline pilot). No full synthetic dataset or later dissertation phase has been implemented.
+The repository includes Phase 1 analysis, Phase 2A preparation, the Phase 2B-A pilot, and a resumable full-scale generation implementation. The full 5,000-approved-record corpus is not claimed complete until the production ledger reaches the locked target and the manual-QC/freeze gates pass.
 
 ## Current Implementation Phase
 
-Phase 1 covers EMSCAD dataset inspection and exploratory data analysis. Phase 2A creates a deterministic, duplicate-preserving, text-only processed dataset from the original EMSCAD source. Phase 2B-A tests generation, provenance, validation, and human-review workflow on only 20 legitimate source advertisements.
+Phase 1 covers EMSCAD dataset inspection and exploratory data analysis. Phase 2A creates a deterministic, duplicate-preserving, text-only processed dataset. Phase 2B-A validates the pilot workflow, and the production runner extends it in controlled 25-source batches until 5,000 records—not merely 5,000 attempts—are approved.
 
 The completed phases do not include:
 
-- Full-scale AI scam generation
+- A completed/frozen 5,000-record production run (until the run and QC gates actually finish)
 - Transformer training
 - Model evaluation
 - Robustness testing
@@ -507,3 +507,43 @@ Key Phase 1 outputs include:
 - Should metadata-only and text-plus-metadata baselines be allowed as secondary experiments?
 - How should missing text fields be represented when concatenating inputs?
 - Should encoding artifacts such as `�` be repaired or normalized during preprocessing?
+## Full-scale v3.5 production generation (locked target)
+
+The production runner in `src/production_generation.py` has a locked completion criterion of **5,000 approved Class-2 records**. Attempts, API failures, rejections, and `NEEDS_HUMAN_REVIEW` records never count toward that target. It uses a deterministic diversity-first ordering over every unique legitimate EMSCAD text group, considering industry, function, employment type, location, experience, education, telecommuting, title, and description length. The first 5,000 are the initial target and the remaining ordered sources are reserves used only when failures require more sources.
+
+New production records use Groq `openai/gpt-oss-20b`. The four approved historical pilots (sources 5581, 14350, 3203, and 7192) are imported when their frozen artifacts exist and retain their actual historical model and generation versions. The runner operates in 50-source batches, checkpoints before provider calls, reports cumulative counts and per-category failures after every batch, and stops on a material batch-quality deterioration. Resume is safe because a source already present in the ledger is never generated again.
+
+Run preprocessing first so `data/raw/emscad.csv` and `data/processed/emscad_clean.csv` exist, configure `GROQ_API_KEY` only in the ignored local `.env`, then run:
+
+```powershell
+python -m src.production_generation
+```
+
+`data/synthetic/production/groq_gpt_v3_5_20b/` contains the exact source selection, manifest, checkpoint, generation ledger, batch reports, approved candidates, and fixed 5% manual-QC sample. Deterministic screening is stored as `human_review_simulation`; it is never represented as `human_review_status`. Freezing requires a separately completed `manual_qc_decisions.csv` matching that pre-specified sample:
+
+```powershell
+python -m src.production_generation --freeze
+```
+
+Only then is `data/synthetic/final/ai_generated_fraud.csv` written. The final dataset builder consumes that frozen file and reports the actual class distribution; it does not assume the expected 17,014 / 866 / 5,000 counts.
+
+### Separate OpenRouter/Qwen3.8 Flash profile
+
+`src/openrouter_production_generation.py` runs the same source-diversity, validation,
+review-simulation, checkpoint, and 5,000-approved-record policy with OpenRouter model
+`qwen/qwen3.8-flash`. Set `OPENROUTER_API_KEY` in the ignored `.env` file, then run:
+
+```powershell
+python -m src.openrouter_production_generation
+```
+
+For supervised restarts until the full target is reached:
+
+```powershell
+python -m src.production_supervisor --profile openrouter --milestone 5000
+```
+
+This profile never imports Groq pilot records and writes only to
+`data/synthetic/production/openrouter_qwen3_8_flash/`. Its frozen output is
+`data/synthetic/final/ai_generated_fraud_openrouter_qwen3_8_flash.csv`, so the
+existing Groq checkpoint and final path are not overwritten.

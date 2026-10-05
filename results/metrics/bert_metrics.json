@@ -1,0 +1,106 @@
+{
+  "configuration": {
+    "model": "bert",
+    "checkpoint": "bert-base-uncased",
+    "tokenizer": "bert-base-uncased",
+    "seed": 42,
+    "learning_rate": 2e-05,
+    "batch_size": 16,
+    "epochs": 3,
+    "max_length": 256,
+    "optimizer": "AdamW",
+    "scheduler": "linear",
+    "early_stopping_patience": 2,
+    "class_weighting": "none (baseline)",
+    "device": "cuda",
+    "torch": "2.5.1+cu121",
+    "transformers": "4.48.3",
+    "duration_seconds": 1241.0346746444702,
+    "split_class_counts": {
+      "train": {
+        "0": 11910,
+        "1": 606,
+        "2": 9724
+      },
+      "validation": {
+        "0": 2552,
+        "1": 130,
+        "2": 2346
+      },
+      "test": {
+        "0": 2552,
+        "1": 130,
+        "2": 2347
+      }
+    }
+  },
+  "validation": {
+    "validation_loss": 0.11269479990005493,
+    "validation_accuracy": 0.9657915672235481,
+    "validation_macro_precision": 0.9432749887682421,
+    "validation_macro_recall": 0.8983778438492257,
+    "validation_macro_f1": 0.9186220568276929,
+    "validation_weighted_precision": 0.9664670613995092,
+    "validation_weighted_recall": 0.9657915672235481,
+    "validation_weighted_f1": 0.9655411621233826,
+    "validation_class_0_precision": 0.9460269865067467,
+    "validation_class_0_recall": 0.9890282131661442,
+    "validation_class_0_f1": 0.9670498084291188,
+    "validation_class_0_support": 2552.0,
+    "validation_class_1_precision": 0.8909090909090909,
+    "validation_class_1_recall": 0.7538461538461538,
+    "validation_class_1_f1": 0.8166666666666667,
+    "validation_class_1_support": 130.0,
+    "validation_class_2_precision": 0.9928888888888889,
+    "validation_class_2_recall": 0.9522591645353794,
+    "validation_class_2_f1": 0.9721496953872933,
+    "validation_class_2_support": 2346.0,
+    "validation_runtime": 16.8967,
+    "validation_samples_per_second": 297.572,
+    "validation_steps_per_second": 18.643,
+    "epoch": 3.0
+  },
+  "test": {
+    "accuracy": 0.963412209186717,
+    "macro_precision": 0.919603317945208,
+    "macro_recall": 0.9015016579148339,
+    "macro_f1": 0.9098564389424574,
+    "weighted_precision": 0.9645635135291174,
+    "weighted_recall": 0.963412209186717,
+    "weighted_f1": 0.9633420134782856,
+    "class_0_precision": 0.941834451901566,
+    "class_0_recall": 0.9898119122257053,
+    "class_0_f1": 0.965227359572029,
+    "class_0_support": 2552.0,
+    "class_1_precision": 0.819672131147541,
+    "class_1_recall": 0.7692307692307693,
+    "class_1_f1": 0.7936507936507936,
+    "class_1_support": 130.0,
+    "class_2_precision": 0.9973033707865169,
+    "class_2_recall": 0.9454622922880273,
+    "class_2_f1": 0.9706911636045494,
+    "class_2_support": 2347.0
+  },
+  "confusion_matrix": [
+    [
+      2526,
+      20,
+      6
+    ],
+    [
+      30,
+      100,
+      0
+    ],
+    [
+      126,
+      2,
+      2219
+    ]
+  ],
+  "labels": {
+    "0": "Legitimate",
+    "1": "Human-written Fraud",
+    "2": "AI-generated Fraud"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "target": 5000,
+  "attempted": 6838,
+  "generated": 6376,
+  "approved": 5001,
+  "rejected": 1740,
+  "needs_human_review": 96,
+  "api_failures": 462,
+  "http_429_errors": 0,
+  "incompatible_sources_skipped": 3284,
+  "acceptance_rate": 0.784348,
+  "remaining_approved_required": 0,
+  "finished": true,
+  "stop_reason": null,
+  "mechanism_distribution": {
+    "suspicious_application": 834,
+    "implausible_recruitment": 833,
+    "urgency_pressure": 834,
+    "unusual_financial_arrangements": 834,
+    "payment_related": 833,
+    "sensitive_information": 833
+  },
+  "model_distribution": {
+    "openai/gpt-oss-120b": 5001
+  }
+}

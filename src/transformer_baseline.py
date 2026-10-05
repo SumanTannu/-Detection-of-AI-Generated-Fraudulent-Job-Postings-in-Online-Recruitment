@@ -1,5 +1,14 @@
 """Comparable BERT, RoBERTa, and DeBERTa baseline experiments on frozen splits."""
 import argparse, json, os, random, time
+
+# This training script uses PyTorch only. Disable optional TensorFlow/Flax/JAX
+# imports before importing transformers; otherwise DeBERTa can fail on Windows
+# because of a TensorFlow -> JAX -> ml_dtypes dependency mismatch.
+os.environ.setdefault("USE_TF", "0")
+os.environ.setdefault("USE_FLAX", "0")
+os.environ.setdefault("TRANSFORMERS_NO_TF", "1")
+os.environ.setdefault("TRANSFORMERS_NO_FLAX", "1")
+
 from datetime import UTC, datetime
 from pathlib import Path
 import numpy as np, pandas as pd, torch
@@ -8,7 +17,7 @@ from torch.utils.data import Dataset
 from transformers import (AutoModelForSequenceClassification, AutoTokenizer, DataCollatorWithPadding,
                           EarlyStoppingCallback, Trainer, TrainingArguments, set_seed)
 
-MODELS = {"bert":"bert-base-uncased", "roberta":"roberta-base", "deberta":"microsoft/deberta-v3-base"}
+MODELS = {"bert":"bert-base-uncased", "roberta":"roberta-base", "deberta":"microsoft/deberta-base"}
 LABELS = [0,1,2]; LABEL_NAMES = ["Legitimate","Human-written Fraud","AI-generated Fraud"]
 
 class TextDataset(Dataset):
@@ -41,11 +50,13 @@ def run(model_key, root, epochs=3, batch_size=8, max_length=256, learning_rate=2
     tokenizer=AutoTokenizer.from_pretrained(checkpoint)
     datasets={name:TextDataset(tokenizer(frame.model_input_text.tolist(),truncation=True,max_length=max_length),frame.label) for name,frame in frames.items()}
     model=AutoModelForSequenceClassification.from_pretrained(checkpoint,num_labels=3,id2label=dict(enumerate(LABEL_NAMES)),label2id={name:index for index,name in enumerate(LABEL_NAMES)})
-    args=TrainingArguments(output_dir=str(output),learning_rate=learning_rate,per_device_train_batch_size=batch_size,per_device_eval_batch_size=batch_size,num_train_epochs=epochs,weight_decay=0.01,eval_strategy="epoch",save_strategy="epoch",logging_strategy="epoch",load_best_model_at_end=True,metric_for_best_model="macro_f1",greater_is_better=True,save_total_limit=2,report_to=[],seed=seed,data_seed=seed,fp16=torch.cuda.is_available())
+    use_fp16 = torch.cuda.is_available() and model_key != "deberta"
+    args=TrainingArguments(output_dir=str(output),learning_rate=learning_rate,per_device_train_batch_size=batch_size,per_device_eval_batch_size=batch_size,num_train_epochs=epochs,weight_decay=0.01,eval_strategy="epoch",save_strategy="epoch",logging_strategy="epoch",load_best_model_at_end=True,metric_for_best_model="macro_f1",greater_is_better=True,save_total_limit=2,report_to=[],seed=seed,data_seed=seed,fp16=use_fp16)
     trainer=Trainer(model=model,args=args,train_dataset=datasets["train"],eval_dataset=datasets["validation"],processing_class=tokenizer,data_collator=DataCollatorWithPadding(tokenizer),compute_metrics=metrics,callbacks=[EarlyStoppingCallback(early_stopping_patience=2)])
     started=time.time(); trainer.train(); validation=trainer.evaluate(datasets["validation"],metric_key_prefix="validation"); test_output=trainer.predict(datasets["test"]); test=metrics((test_output.predictions,test_output.label_ids)); trainer.save_model(str(output/"final_checkpoint")); tokenizer.save_pretrained(str(output/"final_checkpoint"))
     cm=confusion_matrix(test_output.label_ids,np.argmax(test_output.predictions,axis=1),labels=LABELS).tolist()
-    config={"model":model_key,"checkpoint":checkpoint,"tokenizer":tokenizer.name_or_path,"seed":seed,"learning_rate":learning_rate,"batch_size":batch_size,"epochs":epochs,"max_length":max_length,"optimizer":"AdamW","scheduler":"linear","early_stopping_patience":2,"class_weighting":"none (baseline)","device":"cuda" if torch.cuda.is_available() else "cpu","torch":torch.__version__,"transformers":__import__('transformers').__version__,"duration_seconds":time.time()-started,"class2_limitation":"Class 2 has 4 total examples: 2 train, 1 validation, 1 test; its metrics are highly unstable."}
+    split_counts={name:frame.label.astype(int).value_counts().sort_index().to_dict() for name,frame in frames.items()}
+    config={"model":model_key,"checkpoint":checkpoint,"tokenizer":tokenizer.name_or_path,"seed":seed,"learning_rate":learning_rate,"batch_size":batch_size,"epochs":epochs,"max_length":max_length,"optimizer":"AdamW","scheduler":"linear","early_stopping_patience":2,"class_weighting":"none (baseline)","device":"cuda" if torch.cuda.is_available() else "cpu","mixed_precision":"fp16" if use_fp16 else "fp32","torch":torch.__version__,"transformers":__import__('transformers').__version__,"duration_seconds":time.time()-started,"split_class_counts":split_counts}
     results=root/"results"; (results/"metrics").mkdir(exist_ok=True); (results/"confusion_matrices").mkdir(exist_ok=True)
     payload={"configuration":config,"validation":validation,"test":test,"confusion_matrix":cm,"labels":dict(zip(LABELS,LABEL_NAMES))}
     (results/f"metrics/{model_key}_metrics.json").write_text(json.dumps(payload,indent=2),encoding="utf-8")

@@ -1,6 +1,7 @@
-data/splits/validation.csv filter=lfs diff=lfs merge=lfs -text
-data/splits/test.csv filter=lfs diff=lfs merge=lfs -text
 data/raw/emscad.csv filter=lfs diff=lfs merge=lfs -text
-data/processed/emscad_clean.csv filter=lfs diff=lfs merge=lfs -text
-data/processed/final_3class_dataset.csv filter=lfs diff=lfs merge=lfs -text
-data/splits/train.csv filter=lfs diff=lfs merge=lfs -text
+data/processed/*.csv filter=lfs diff=lfs merge=lfs -text
+data/splits/*.csv filter=lfs diff=lfs merge=lfs -text
+data/preprocessed/**/*.csv filter=lfs diff=lfs merge=lfs -text
+data/synthetic/production/**/*.csv filter=lfs diff=lfs merge=lfs -text
+data/synthetic/export/*.csv filter=lfs diff=lfs merge=lfs -text
+DataSet/*.csv filter=lfs diff=lfs merge=lfs -text

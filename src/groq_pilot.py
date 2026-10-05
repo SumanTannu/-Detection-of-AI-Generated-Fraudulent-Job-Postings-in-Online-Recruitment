@@ -36,9 +36,25 @@ def file_hash(path: Path) -> str:
 
 
 def atomic_json(path: Path, value) -> None:
-    temporary = path.with_suffix(path.suffix + ".tmp")
-    temporary.write_text(json.dumps(value, ensure_ascii=True, indent=2), encoding="utf-8")
-    temporary.replace(path)
+    """Atomically write JSON, tolerating short-lived Windows file locks."""
+    payload = json.dumps(value, ensure_ascii=True, indent=2)
+    temporary = path.with_name(f"{path.name}.{os.getpid()}.{uuid.uuid4().hex}.tmp")
+    temporary.write_text(payload, encoding="utf-8")
+    try:
+        for attempt in range(10):
+            try:
+                os.replace(temporary, path)
+                return
+            except PermissionError:
+                if attempt == 9:
+                    raise
+                time.sleep(0.1 * (attempt + 1))
+    finally:
+        if temporary.exists():
+            try:
+                temporary.unlink()
+            except OSError:
+                pass
 
 
 def safe_output(value):

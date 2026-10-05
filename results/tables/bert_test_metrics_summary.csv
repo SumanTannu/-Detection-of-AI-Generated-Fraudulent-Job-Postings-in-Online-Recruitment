@@ -1,0 +1,8 @@
+metric,test_score_percent
+Accuracy,96.3412209186717
+Macro Precision,91.9603317945208
+Macro Recall,90.15016579148339
+Macro F1,90.98564389424574
+Weighted Precision,96.45635135291174
+Weighted Recall,96.3412209186717
+Weighted F1,96.33420134782857

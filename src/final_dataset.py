@@ -45,6 +45,23 @@ def protected_hashes(root):
 
 def load_approved_synthetic(root):
     root = Path(root)
+    production = root / "data/synthetic/final/ai_generated_fraud.csv"
+    if production.exists():
+        frame = pd.read_csv(production, dtype=str, keep_default_na=False)
+        if len(frame) != 5000 or frame["source_row_id"].nunique() != 5000:
+            raise ValueError("Frozen production corpus must contain 5,000 distinct approved sources.")
+        if not frame["final_decision"].eq("APPROVED").all():
+            raise ValueError("Frozen production corpus contains a non-approved record.")
+        records = {}
+        for _, item in frame.iterrows():
+            records[int(item["source_row_id"])] = {
+                "synthetic_id": item["synthetic_id"], "source_row_id": int(item["source_row_id"]),
+                "source_text_group_id": item["source_text_group_id"], "fraud_mechanism": item["fraud_mechanism"],
+                "model": item["model"], "generation_version": item["generation_version"],
+                "prompt_version": item["prompt_version"], "validation_status": "auto_pass",
+                "generated": {field: item.get(field, "") for field in CORE_FIELDS},
+            }
+        return records
     records = {}
     for version, source_id in APPROVED:
         path = root / "data/synthetic/pilot" / ("groq_gpt_v3_4" if version == "v3_4" else "groq_gpt_v3_5")
@@ -119,7 +136,7 @@ def build(root):
                        "parent_source_row_id": str(source_id), "fraud_mechanism": row["fraud_mechanism"],
                        "generation_model": row["model"], "generation_version": row.get("generation_version", row.get("prompt_version", "")),
                        "prompt_version": row["prompt_version"], "validation_status": row.get("validation_status", row.get("validation", {}).get("validation_status", "")),
-                       "human_review_status": "pending" if source_id != 5581 else "accepted_human_review",
+                       "human_review_status": row.get("human_review_status", "historical_status_preserved"),
                        "final_decision": "ACCEPT", "record_id": row["synthetic_id"]})
         synthetic.append(values)
     final = pd.concat([original, pd.DataFrame(synthetic)], ignore_index=True, sort=False)

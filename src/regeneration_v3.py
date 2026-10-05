@@ -53,10 +53,16 @@ class GroqV3Provider(GroqProvider):
     def generate_json(self, prompt, schema):
         self.last_response = {}
         try:
-            raw = self.client.chat.completions.with_raw_response.create(
+            # Production key-slot routing stores clients in ``clients``;
+            # select the configured sole client explicitly for this adapter.
+            client = self.clients[self._client_index % len(self.clients)]
+            self._client_index += 1
+            response_format = ({"type": "json_object"} if self.model == "openai/gpt-oss-20b" else
+                               {"type": "json_schema", "json_schema": {
+                                   "name": "recruitment_record", "strict": True, "schema": schema}})
+            raw = client.chat.completions.with_raw_response.create(
                 model=self.model, messages=[{"role": "user", "content": prompt}],
-                response_format={"type": "json_schema", "json_schema": {
-                    "name": "recruitment_record", "strict": True, "schema": schema}},
+                response_format=response_format,
                 max_completion_tokens=4096, temperature=0.5, seed=42,
             )
             response = raw.parse()
